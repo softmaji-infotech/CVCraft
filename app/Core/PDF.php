@@ -41,7 +41,7 @@ final class PDF
         $mpdf->SetHTMLFooter('<div style="text-align:center;color:#6b7280;font-size:10px;">' . htmlspecialchars($footer, ENT_QUOTES, 'UTF-8') . '</div>');
         $mpdf->WriteHTML($html);
 
-        $unique = bin2hex(random_bytes(4));
+        $unique = bin2hex(random_bytes(8));
         $fullPath = $pdfDir . '/' . preg_replace('/[^a-z0-9_-]/i', '-', $filename) . '-' . $unique . '.pdf';
         $mpdf->Output($fullPath, 'F');
 

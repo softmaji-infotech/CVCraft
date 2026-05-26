@@ -179,8 +179,10 @@ HTML;
         }
         $resume = $engine->getResume();
         $file = $engine->generatePDF($_SESSION['template'], $resume);
+        $downloadName = preg_replace('/[^a-z0-9_-]/i', '-', (string) ($resume['name'] ?? 'resume')) ?: 'resume';
+        $downloadName .= '-resume.pdf';
         header('Content-Type: application/pdf');
-        header('Content-Disposition: attachment; filename="resume.pdf"');
+        header('Content-Disposition: attachment; filename="' . $downloadName . '"');
         header('Content-Length: ' . filesize($file));
         readfile($file);
         $engine->cleanupPdf($file);
