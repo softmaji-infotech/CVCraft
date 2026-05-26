@@ -4,10 +4,7 @@
 <div style="font-family:Arial, sans-serif; color:#111827; background:#fff;">
     <h1 style="font-size:28px;margin-bottom:0;"><?= $helper::e($resume['name'] ?: 'Your Name') ?></h1>
     <p style="margin-top:4px;color:#2563eb;font-size:16px;"><?= $helper::e($resume['title'] ?: 'Professional Title') ?></p>
-    <p style="font-size:12px;color:#4b5563;">
-        <?= $helper::e($resume['email']) ?> <?= $resume['phone'] ? '| ' . $helper::e($resume['phone']) : '' ?>
-        <?= $resume['address'] ? '| ' . $helper::e($resume['address']) : '' ?>
-    </p>
+    <p style="font-size:12px;color:#4b5563;"><?= $helper::e(implode(' | ', array_values(array_filter([$resume['email'], $resume['phone'], $resume['address']])))) ?></p>
     <?php if (!empty($resume['summary'])): ?><h3>Summary</h3><p><?= nl2br($helper::e($resume['summary'])) ?></p><?php endif; ?>
     <?php if (!empty($resume['skills'])): ?><h3>Skills</h3><p><?= $helper::e(implode(', ', $resume['skills'])) ?></p><?php endif; ?>
     <?php if (!empty($resume['experience'])): ?><h3>Experience</h3><?php foreach ($resume['experience'] as $exp): ?><div><strong><?= $helper::e($exp['role'] ?? '') ?></strong> - <?= $helper::e($exp['company'] ?? '') ?> (<?= $helper::e($exp['duration'] ?? '') ?>)<br><?= nl2br($helper::e($exp['description'] ?? '')) ?></div><?php endforeach; ?><?php endif; ?>

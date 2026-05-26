@@ -70,13 +70,13 @@ switch ($action) {
         $csrf = Helpers::csrfToken();
         $templateEsc = Helpers::e($_SESSION['template']);
         $preview = $engine->renderTemplate($_SESSION['template'], $resume);
-        $resumeJson = htmlspecialchars(json_encode($resume, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT), ENT_QUOTES, 'UTF-8');
+        $resumeJson = json_encode($resume, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_THROW_ON_ERROR);
         $body = <<<HTML
 <main class="max-w-7xl mx-auto p-4" x-data="builderApp('{$csrf}', '{$templateEsc}', '{$resumeJson}')" x-init="init()">
   <div class="mb-4 flex justify-between items-center"><h1 class="text-2xl font-bold">Resume Builder</h1><a class="text-[#2563eb]" href="?action=templates">Change Template</a></div>
   <div class="grid lg:grid-cols-2 gap-4">
     <section class="bg-white rounded-xl shadow p-4 space-y-4">
-      <form id="resumeForm" @input.debounce.400ms="refresh()" class="space-y-3">
+      <form @input.debounce.400ms="refresh()" class="space-y-3">
         <input type="hidden" name="csrf_token" :value="csrf">
         <div class="grid md:grid-cols-2 gap-3">
           <input x-model="resume.name" placeholder="Full Name" class="border p-2 rounded">

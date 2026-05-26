@@ -15,12 +15,16 @@ final class PDF
         }
 
         $pdfDir = dirname(__DIR__, 2) . '/storage/pdf';
+        $tempDir = dirname(__DIR__, 2) . '/storage/temp';
         if (!is_dir($pdfDir)) {
             mkdir($pdfDir, 0775, true);
         }
+        if (!is_dir($tempDir)) {
+            mkdir($tempDir, 0775, true);
+        }
 
         $mpdf = new Mpdf([
-            'tempDir' => dirname(__DIR__, 2) . '/storage/temp',
+            'tempDir' => $tempDir,
             'mode' => 'utf-8',
             'format' => 'A4',
             'margin_top' => 14,

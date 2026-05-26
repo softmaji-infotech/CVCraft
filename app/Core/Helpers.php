@@ -14,7 +14,7 @@ final class Helpers
 
         session_set_cookie_params([
             'httponly' => true,
-            'secure' => isset($_SERVER['HTTPS']),
+            'secure' => ($_SERVER['HTTPS'] ?? 'off') !== 'off',
             'samesite' => 'Lax',
         ]);
         session_start();
