@@ -12,9 +12,12 @@ final class Helpers
             return;
         }
 
+        $isHttps = ($_SERVER['HTTPS'] ?? 'off') !== 'off'
+            || strtolower((string) ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '')) === 'https';
+
         session_set_cookie_params([
             'httponly' => true,
-            'secure' => ($_SERVER['HTTPS'] ?? 'off') !== 'off',
+            'secure' => $isHttps,
             'samesite' => 'Lax',
         ]);
         session_start();
